@@ -1,0 +1,38 @@
+CREATE TABLE `CS2420`.`PatientDirectory` (
+  `PatientID` INT NOT NULL,
+  `First` VARCHAR(45) NULL,
+  `Last` VARCHAR(45) NULL,
+  `Sex` VARCHAR(45) NULL,
+  `DoB` VARCHAR(45) NULL,
+  `PCPID` VARCHAR(45) NULL,
+  `Address` VARCHAR(45) NULL,
+  `City` VARCHAR(45) NULL,
+  `SSN` INT NULL,
+  `ContactPhone` INT NULL,
+  `ContactEmail` VARCHAR(45) NULL,
+  `Password` VARCHAR(45) NULL,
+  `EmergencyContactName` VARCHAR(45) NULL,
+  `EmergencyContactPhone` INT NULL,
+  PRIMARY KEY (`PatientID`));
+  
+CREATE TABLE `CS2420`.`PhysicianDirectory` (
+  `PhysicianID` INT NOT NULL,
+  `First` VARCHAR(45) NULL,
+  `Last` VARCHAR(45) NULL,
+  `Sex` VARCHAR(45) NULL,
+  `DoB` VARCHAR(45) NULL,
+  `Address` VARCHAR(45) NULL,
+  `City` VARCHAR(45) NULL,
+  `Specialty` VARCHAR(45) NULL,
+  `Resident/Attending` VARCHAR(45) NULL,
+  `ContactPhone` INT NULL,
+  `ContactEmail` VARCHAR(45) NULL,
+  `Password` VARCHAR(45) NULL,
+  PRIMARY KEY (`PhysicianID`));
+
+CREATE TABLE PCPDirectory (
+    PCPID INT NOT NULL,
+    PhysicianID INT NOT NULL,
+    PRIMARY KEY (PCPID),
+    FOREIGN KEY (PhysicianID) REFERENCES PhysicianDirectory(PhysicianID)
+);

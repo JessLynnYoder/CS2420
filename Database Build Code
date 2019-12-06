@@ -47,3 +47,14 @@ CREATE TABLE AppointmentDirectory (
 	FOREIGN KEY (PatientID) REFERENCES PatientDirectory(PatientID),
     FOREIGN KEY (PhysicianID) REFERENCES PhysicianDirectory(PhysicianID)
 );
+
+CREATE TABLE AppointmentDirectory (
+    AppointmentID INT NOT NULL,
+    PatientID INT NOT NULL,
+	PhysicianID INT NOT NULL,
+    ApptDate VARCHAR(45) NOT NULL,
+    ApptReason VARCHAR(45),
+    PRIMARY KEY (AppointmentID),
+	FOREIGN KEY (PatientID) REFERENCES PatientDirectory(PatientID),
+    FOREIGN KEY (PhysicianID) REFERENCES PhysicianDirectory(PhysicianID)
+);

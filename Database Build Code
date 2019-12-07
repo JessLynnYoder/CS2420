@@ -131,7 +131,7 @@ END//
 delimiter ;
 
 delimiter //
-create procedure addPatient (IN p_PatientID INT, IN p_First varchar(45), IN p_Last varchar(45), IN p_Sex varchar(45), IN p_DoB varchar(45), IN p_PCPID INT, IN p_Address varchar(45), IN p_City varchar(45), IN p_SSN varchar(45), IN p_ContactPhone varchar(45), IN p_ContactEmail varchar(45), IN p_Password varchar(45), IN p_EmergencyContactName varchar(45), IN p_EmergencyContactPhone varchar(45))
+create procedure registerPatient (IN p_PatientID INT, IN p_First varchar(45), IN p_Last varchar(45), IN p_Sex varchar(45), IN p_DoB varchar(45), IN p_PCPID INT, IN p_Address varchar(45), IN p_City varchar(45), IN p_SSN varchar(45), IN p_ContactPhone varchar(45), IN p_ContactEmail varchar(45), IN p_Password varchar(45), IN p_EmergencyContactName varchar(45), IN p_EmergencyContactPhone varchar(45))
 BEGIN
 INSERT INTO PatientDirectory
 SET PatientID = p_PatientID, `First` = p_First, `Last` = p_Last, Sex = p_Sex, DoB = p_DoB, PCPID = p_PCPID, Address = p_Address, City = p_City, SSN = p_SSN, ContactPhone = p_ContactPhone, ContactEmail = p_ContactEmail, `Password` = p_Password, EmergencyContactName = p_EmergencyContactName, EmergencyContactPhone = p_EmergencyContactPhone;
@@ -139,7 +139,7 @@ END//
 delimiter ;
 
 delimiter //
-create procedure addPhysician (IN p_PhysicianID INT, IN p_First varchar(45), IN p_Last varchar(45), IN p_Sex varchar(45), IN p_DoB varchar(45), IN p_Address varchar(45), IN p_City varchar(45), IN p_Specialty varchar(45), IN `p_Resident/Attending` varchar(45), IN p_ContactPhone varchar(45), IN p_ContactEmail varchar(45), IN p_Password varchar(45))
+create procedure registerPhysician (IN p_PhysicianID INT, IN p_First varchar(45), IN p_Last varchar(45), IN p_Sex varchar(45), IN p_DoB varchar(45), IN p_Address varchar(45), IN p_City varchar(45), IN p_Specialty varchar(45), IN `p_Resident/Attending` varchar(45), IN p_ContactPhone varchar(45), IN p_ContactEmail varchar(45), IN p_Password varchar(45))
 BEGIN
 INSERT INTO PhysicianDirectory
 SET PhysicianID = p_PhysicianID, `First` = p_First, `Last` = p_Last, Sex = p_Sex, DoB = p_DoB, Address = p_Address, City = p_City, Specialty = p_Specialty, `Resident/Attending` = `p_Resident/Attending`, ContactPhone = p_ContactPhone, ContactEmail = p_ContactEmail, `Password` = p_Password;

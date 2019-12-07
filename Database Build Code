@@ -95,3 +95,8 @@ INSERT INTO `CS2420`.`PhysicianDirectory` (`PhysicianID`, `First`, `Last`, `Sex`
 INSERT INTO `CS2420`.`PhysicianDirectory` (`PhysicianID`, `First`, `Last`, `Sex`, `DoB`, `Address`, `City`, `Specialty`, `Resident/Attending`, `ContactPhone`, `ContactEmail`, `Password`) VALUES ('202', 'Jack', 'Kerouac', 'M', '06/30/1987', '43 Gilbert Ave', 'Ames', 'Anesthesiology', 'Resident', '843-223-3881', 'kerouac-jack@gmail.com', '848**dnsmd');
 INSERT INTO `CS2420`.`PhysicianDirectory` (`PhysicianID`, `First`, `Last`, `Sex`, `DoB`, `Address`, `City`, `Specialty`, `Resident/Attending`, `ContactPhone`, `ContactEmail`, `Password`) VALUES ('203', 'Meryl', 'Streep', 'F', '08/31/1990', '784 Allen St', 'Ames', 'Neurology', 'Resident', '364-837-2773', 'streep-meryl@yahoo.com', 'sta$%jdN');
 INSERT INTO `CS2420`.`PhysicianDirectory` (`PhysicianID`, `First`, `Last`, `Sex`, `DoB`, `Address`, `City`, `Specialty`, `Resident/Attending`, `ContactPhone`, `ContactEmail`, `Password`) VALUES ('204', 'Janelle', 'Monae', 'F', '10/10/1981', '522 Madison Ln', 'Des Moines', 'Gynecologic Oncology', 'Attending', '4739282971', 'janelle-monae@gmail.com', 'djek!!nKLh');
+
+INSERT INTO `CS2420`.`PCPDirectory` (`PCPID`, `PhysicianID`) VALUES ('300', '200');
+INSERT INTO `CS2420`.`PCPDirectory` (`PCPID`, `PhysicianID`) VALUES ('301', '201');
+INSERT INTO `CS2420`.`PCPDirectory` (`PCPID`, `PhysicianID`) VALUES ('302', '204');
+

@@ -178,3 +178,11 @@ SET PatientID = p_PatientID, PhysicianID = p_PhysicianID, ApptDate = p_ApptDate,
 WHERE AppointmentID = p_AppointmentID;
 END//
 delimiter ;
+
+delimiter //
+create procedure addMedication (IN p_PatientID INT, IN p_Medication varchar(45))
+BEGIN
+INSERT INTO MedicationRecords
+SET PatientID = p_PatientID, Medication = p_Medication;
+END//
+delimiter ;

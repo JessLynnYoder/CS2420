@@ -108,6 +108,9 @@ INSERT INTO `CS2420`.`PatientDirectory` (`PatientID`, `First`, `Last`, `Sex`, `D
 INSERT INTO `CS2420`.`PatientDirectory` (`PatientID`, `First`, `Last`, `Sex`, `DoB`, `PCPID`, `Address`, `City`, `SSN`, `ContactPhone`, `ContactEmail`, `Password`, `EmergencyContactName`, `EmergencyContactPhone`) VALUES ('105', 'Michael', 'Langdon', 'M', '06/06/1999', '302', '666 Park Way Dr', 'Iowa City', '666-83-1763', '304-283-2866', 'langdon-michael@gmail.com', '!!nrii*nd', 'Constance', '936-441-1836');
 INSERT INTO `CS2420`.`PatientDirectory` (`PatientID`, `First`, `Last`, `Sex`, `DoB`, `PCPID`, `Address`, `City`, `SSN`, `ContactPhone`, `ContactEmail`, `Password`, `EmergencyContactName`, `EmergencyContactPhone`) VALUES ('106', 'Constance', 'Langdon', 'F', '09/13/1968', '300', '666 Park Way Dr', 'Iowa City', '743-88-2711', '936-441-1836', 'constance-langdon@yahoo.com', '45rrkkN8&', 'Tate', '273-928-3886');
 
+INSERT INTO `CS2420`.`AppointmentDirectory` (`AppointmentID`, `PatientID`, `PhysicianID`, `ApptDate`, `ApptReason`) VALUES ('500', '100', '200', '12/01/2019', 'Headaches');
+INSERT INTO `CS2420`.`AppointmentDirectory` (`AppointmentID`, `PatientID`, `PhysicianID`, `ApptDate`, `ApptReason`) VALUES ('501', '101', '201', '12/19/2019', 'Checkup');
+
 --PROCEDURES--
 delimiter //
 create procedure updatePatient (IN p_PatientID INT, IN p_First varchar(45), IN p_Last varchar(45), IN p_Sex varchar(45), IN p_DoB varchar(45), IN p_PCPID INT, IN p_Address varchar(45), IN p_City varchar(45), IN p_SSN varchar(45), IN p_ContactPhone varchar(45), IN p_ContactEmail varchar(45), IN p_Password varchar(45), IN p_EmergencyContactName varchar(45), IN p_EmergencyContactPhone varchar(45))

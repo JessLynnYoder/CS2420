@@ -130,7 +130,7 @@ delimiter ;
 delimiter //
 create procedure addPatient (IN p_PatientID INT, IN p_First varchar(45), IN p_Last varchar(45), IN p_Sex varchar(45), IN p_DoB varchar(45), IN p_PCPID INT, IN p_Address varchar(45), IN p_City varchar(45), IN p_SSN varchar(45), IN p_ContactPhone varchar(45), IN p_ContactEmail varchar(45), IN p_Password varchar(45), IN p_EmergencyContactName varchar(45), IN p_EmergencyContactPhone varchar(45))
 BEGIN
-UPDATE PatientDirectory
+INSERT INTO PatientDirectory
 SET PatientID = p_PatientID, `First` = p_First, `Last` = p_Last, Sex = p_Sex, DoB = p_DoB, PCPID = p_PCPID, Address = p_Address, City = p_City, SSN = p_SSN, ContactPhone = p_ContactPhone, ContactEmail = p_ContactEmail, `Password` = p_Password, EmergencyContactName = p_EmergencyContactName, EmergencyContactPhone = p_EmergencyContactPhone;
 END//
 delimiter ;

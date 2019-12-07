@@ -145,3 +145,11 @@ INSERT INTO PhysicianDirectory
 SET PhysicianID = p_PhysicianID, `First` = p_First, `Last` = p_Last, Sex = p_Sex, DoB = p_DoB, Address = p_Address, City = p_City, Specialty = p_Specialty, `Resident/Attending` = `p_Resident/Attending`, ContactPhone = p_ContactPhone, ContactEmail = p_ContactEmail, `Password` = p_Password;
 END//
 delimiter ;
+
+delimiter //
+create procedure scheduleAppointment (IN p_AppointmentID INT, IN p_PatientID INT, IN p_PhysicianID INT, IN p_ApptDate varchar(45), IN p_ApptReason varchar(45))
+BEGIN
+INSERT INTO AppointmentDirectory
+SET AppointmentID = p_AppointmentID, PatientID = p_PatientID, PhysicianID = p_PhysicianID, ApptDate = p_ApptDate, ApptReason = p_ApptReason;
+END//
+delimiter ;

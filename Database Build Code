@@ -111,6 +111,14 @@ INSERT INTO `CS2420`.`PatientDirectory` (`PatientID`, `First`, `Last`, `Sex`, `D
 INSERT INTO `CS2420`.`AppointmentDirectory` (`AppointmentID`, `PatientID`, `PhysicianID`, `ApptDate`, `ApptReason`) VALUES ('500', '100', '200', '12/01/2019', 'Headaches');
 INSERT INTO `CS2420`.`AppointmentDirectory` (`AppointmentID`, `PatientID`, `PhysicianID`, `ApptDate`, `ApptReason`) VALUES ('501', '101', '201', '12/19/2019', 'Checkup');
 
+INSERT INTO `CS2420`.`MedicationRecords`(`PatientID`,`Medication`) VALUES (102,'Vicodin');
+INSERT INTO `CS2420`.`MedicationRecords`(`PatientID`,`Medication`) VALUES (102,'Lipitor');
+INSERT INTO `CS2420`.`MedicationRecords`(`PatientID`,`Medication`) VALUES (103,'Simvastatin');
+INSERT INTO `CS2420`.`MedicationRecords`(`PatientID`,`Medication`) VALUES (104,'Metformin');
+INSERT INTO `CS2420`.`MedicationRecords`(`PatientID`,`Medication`) VALUES (106,'Azithromycin');
+INSERT INTO `CS2420`.`MedicationRecords`(`PatientID`,`Medication`) VALUES (106,'Amlodipine');
+INSERT INTO `CS2420`.`MedicationRecords`(`PatientID`,`Medication`) VALUES (106,'Vicodin');
+
 --PROCEDURES--
 delimiter //
 create procedure updatePatient (IN p_PatientID INT, IN p_First varchar(45), IN p_Last varchar(45), IN p_Sex varchar(45), IN p_DoB varchar(45), IN p_PCPID INT, IN p_Address varchar(45), IN p_City varchar(45), IN p_SSN varchar(45), IN p_ContactPhone varchar(45), IN p_ContactEmail varchar(45), IN p_Password varchar(45), IN p_EmergencyContactName varchar(45), IN p_EmergencyContactPhone varchar(45))

@@ -161,3 +161,12 @@ DELETE FROM AppointmentDirectory
 WHERE AppointmentID = p_AppointmentID;
 END//
 delimiter ;
+
+delimiter //
+create procedure editAppointment (IN p_AppointmentID INT, IN p_PatientID INT, IN p_PhysicianID INT, IN p_ApptDate varchar(45), IN p_ApptReason varchar(45))
+BEGIN
+UPDATE AppointmentDirectory
+SET PatientID = p_PatientID, PhysicianID = p_PhysicianID, ApptDate = p_ApptDate, ApptReason = p_ApptReason
+WHERE AppointmentID = p_AppointmentID;
+END//
+delimiter ;

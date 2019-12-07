@@ -153,3 +153,11 @@ INSERT INTO AppointmentDirectory
 SET AppointmentID = p_AppointmentID, PatientID = p_PatientID, PhysicianID = p_PhysicianID, ApptDate = p_ApptDate, ApptReason = p_ApptReason;
 END//
 delimiter ;
+
+delimiter //
+create procedure cancelAppointment (IN p_AppointmentID INT)
+BEGIN
+DELETE FROM AppointmentDirectory
+WHERE AppointmentID = p_AppointmentID;
+END//
+delimiter ;

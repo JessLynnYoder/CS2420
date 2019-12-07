@@ -4,7 +4,7 @@ CREATE TABLE `CS2420`.`PatientDirectory` (
   `Last` VARCHAR(45) NULL,
   `Sex` VARCHAR(45) NULL,
   `DoB` VARCHAR(45) NULL,
-  `PCPID` VARCHAR(45) NULL,
+  `PCPID` INT NULL,
   `Address` VARCHAR(45) NULL,
   `City` VARCHAR(45) NULL,
   `SSN` INT NULL,
@@ -84,3 +84,5 @@ CREATE TABLE MedicalRecords (
     Notes VARCHAR(200),
 	FOREIGN KEY (PatientID) REFERENCES PatientDirectory(PatientID)
 );
+
+  ALTER TABLE PatientDirectory ADD FOREIGN KEY (PCPID) REFERENCES PCPDirectory (PCPID);

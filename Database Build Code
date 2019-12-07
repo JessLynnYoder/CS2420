@@ -194,3 +194,11 @@ INSERT INTO MedicationRecords
 SET PatientID = p_PatientID, Medication = p_Medication;
 END//
 delimiter ;
+
+delimiter //
+create procedure addAllergy (IN p_PatientID INT, IN p_Allergy varchar(45))
+BEGIN
+INSERT INTO AllergyRecords
+SET PatientID = p_PatientID, Allergy = p_Allergy;
+END//
+delimiter ;

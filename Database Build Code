@@ -48,13 +48,20 @@ CREATE TABLE AppointmentDirectory (
     FOREIGN KEY (PhysicianID) REFERENCES PhysicianDirectory(PhysicianID)
 );
 
-CREATE TABLE AppointmentDirectory (
-    AppointmentID INT NOT NULL,
+CREATE TABLE BillingRecords (
     PatientID INT NOT NULL,
-	PhysicianID INT NOT NULL,
-    ApptDate VARCHAR(45) NOT NULL,
-    ApptReason VARCHAR(45),
-    PRIMARY KEY (AppointmentID),
-	FOREIGN KEY (PatientID) REFERENCES PatientDirectory(PatientID),
-    FOREIGN KEY (PhysicianID) REFERENCES PhysicianDirectory(PhysicianID)
+    Insurance VARCHAR(45),
+	FOREIGN KEY (PatientID) REFERENCES PatientDirectory(PatientID)
+);
+
+CREATE TABLE BillHistory (
+	BillID INT NOT NULL,
+    PatientID INT NOT NULL,
+    DateIssued VARCHAR(45),
+    DateDue VARCHAR(45),
+    AmountDue INT,
+    AmountPaid INT,
+    Reason VARCHAR(45),
+    PRIMARY KEY (BillID),
+	FOREIGN KEY (PatientID) REFERENCES PatientDirectory(PatientID)
 );

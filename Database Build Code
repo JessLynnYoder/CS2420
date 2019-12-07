@@ -1,3 +1,5 @@
+--BUILDING THE BASE--
+
 CREATE TABLE `CS2420`.`PatientDirectory` (
   `PatientID` INT NOT NULL,
   `First` VARCHAR(45) NULL,
@@ -7,12 +9,12 @@ CREATE TABLE `CS2420`.`PatientDirectory` (
   `PCPID` INT NULL,
   `Address` VARCHAR(45) NULL,
   `City` VARCHAR(45) NULL,
-  `SSN` INT NULL,
-  `ContactPhone` INT NULL,
+  `SSN` VARCHAR(45) NULL,
+  `ContactPhone` VARCHAR(45) NULL,
   `ContactEmail` VARCHAR(45) NULL,
   `Password` VARCHAR(45) NULL,
   `EmergencyContactName` VARCHAR(45) NULL,
-  `EmergencyContactPhone` INT NULL,
+  `EmergencyContactPhone` VARCHAR(45) NULL,
   PRIMARY KEY (`PatientID`));
   
 CREATE TABLE `CS2420`.`PhysicianDirectory` (
@@ -25,7 +27,7 @@ CREATE TABLE `CS2420`.`PhysicianDirectory` (
   `City` VARCHAR(45) NULL,
   `Specialty` VARCHAR(45) NULL,
   `Resident/Attending` VARCHAR(45) NULL,
-  `ContactPhone` INT NULL,
+  `ContactPhone` VARCHAR(45) NULL,
   `ContactEmail` VARCHAR(45) NULL,
   `Password` VARCHAR(45) NULL,
   PRIMARY KEY (`PhysicianID`));
@@ -86,3 +88,10 @@ CREATE TABLE MedicalRecords (
 );
 
   ALTER TABLE PatientDirectory ADD FOREIGN KEY (PCPID) REFERENCES PCPDirectory (PCPID);
+
+--POPULATING THE BASE--
+INSERT INTO `CS2420`.`PhysicianDirectory` (`PhysicianID`, `First`, `Last`, `Sex`, `DoB`, `Address`, `City`, `Specialty`, `Resident/Attending`, `ContactPhone`, `ContactEmail`, `Password`) VALUES ('200', 'Allen', 'Ginsberg', 'M', '03/02/1965', '435 Baker St', 'Des Moines', 'Radiology', 'Attending', '324-564-9687', 'allen-ginsberg@gmail.com', '2k48dn@A');
+INSERT INTO `CS2420`.`PhysicianDirectory` (`PhysicianID`, `First`, `Last`, `Sex`, `DoB`, `Address`, `City`, `Specialty`, `Resident/Attending`, `ContactPhone`, `ContactEmail`, `Password`) VALUES ('201', 'Lucien', 'Carr', 'M', '12/23/1981', '54 Van Buren', 'Des Moines', 'Dermatology', 'Attending', '453-3959-2549', 'lucien-carr@yahoo.com', '#4KbdsK');
+INSERT INTO `CS2420`.`PhysicianDirectory` (`PhysicianID`, `First`, `Last`, `Sex`, `DoB`, `Address`, `City`, `Specialty`, `Resident/Attending`, `ContactPhone`, `ContactEmail`, `Password`) VALUES ('202', 'Jack', 'Kerouac', 'M', '06/30/1987', '43 Gilbert Ave', 'Ames', 'Anesthesiology', 'Resident', '843-223-3881', 'kerouac-jack@gmail.com', '848**dnsmd');
+INSERT INTO `CS2420`.`PhysicianDirectory` (`PhysicianID`, `First`, `Last`, `Sex`, `DoB`, `Address`, `City`, `Specialty`, `Resident/Attending`, `ContactPhone`, `ContactEmail`, `Password`) VALUES ('203', 'Meryl', 'Streep', 'F', '08/31/1990', '784 Allen St', 'Ames', 'Neurology', 'Resident', '364-837-2773', 'streep-meryl@yahoo.com', 'sta$%jdN');
+INSERT INTO `CS2420`.`PhysicianDirectory` (`PhysicianID`, `First`, `Last`, `Sex`, `DoB`, `Address`, `City`, `Specialty`, `Resident/Attending`, `ContactPhone`, `ContactEmail`, `Password`) VALUES ('204', 'Janelle', 'Monae', 'F', '10/10/1981', '522 Madison Ln', 'Des Moines', 'Gynecologic Oncology', 'Attending', '4739282971', 'janelle-monae@gmail.com', 'djek!!nKLh');

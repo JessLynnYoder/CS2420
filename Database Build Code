@@ -65,3 +65,22 @@ CREATE TABLE BillHistory (
     PRIMARY KEY (BillID),
 	FOREIGN KEY (PatientID) REFERENCES PatientDirectory(PatientID)
 );
+
+CREATE TABLE MedicationRecords (
+    PatientID INT NOT NULL,
+    Medication VARCHAR(45),
+	FOREIGN KEY (PatientID) REFERENCES PatientDirectory(PatientID)
+);
+
+CREATE TABLE AllergyRecords (
+    PatientID INT NOT NULL,
+    Allergy VARCHAR(45),
+	FOREIGN KEY (PatientID) REFERENCES PatientDirectory(PatientID)
+);
+
+CREATE TABLE MedicalRecords (
+    PatientID INT NOT NULL,
+    Diagnosis VARCHAR(45),
+    Notes VARCHAR(200),
+	FOREIGN KEY (PatientID) REFERENCES PatientDirectory(PatientID)
+);

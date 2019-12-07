@@ -119,6 +119,14 @@ INSERT INTO `CS2420`.`MedicationRecords`(`PatientID`,`Medication`) VALUES (106,'
 INSERT INTO `CS2420`.`MedicationRecords`(`PatientID`,`Medication`) VALUES (106,'Amlodipine');
 INSERT INTO `CS2420`.`MedicationRecords`(`PatientID`,`Medication`) VALUES (106,'Vicodin');
 
+INSERT INTO `CS2420`.`AllergyRecords`(`PatientID`,`Allergy`) VALUES (100,'Pollen');
+INSERT INTO `CS2420`.`AllergyRecords`(`PatientID`,`Allergy`) VALUES (101,'Tree nuts');
+INSERT INTO `CS2420`.`AllergyRecords`(`PatientID`,`Allergy`) VALUES (101,'Amoxicillin');
+INSERT INTO `CS2420`.`AllergyRecords`(`PatientID`,`Allergy`) VALUES (103,'Ibuprofen');
+INSERT INTO `CS2420`.`AllergyRecords`(`PatientID`,`Allergy`) VALUES (103,'Amoxicillin');
+INSERT INTO `CS2420`.`AllergyRecords`(`PatientID`,`Allergy`) VALUES (104,'Shellfish');
+INSERT INTO `CS2420`.`AllergyRecords`(`PatientID`,`Allergy`) VALUES (105,'Tree nuts');
+
 --PROCEDURES--
 delimiter //
 create procedure updatePatient (IN p_PatientID INT, IN p_First varchar(45), IN p_Last varchar(45), IN p_Sex varchar(45), IN p_DoB varchar(45), IN p_PCPID INT, IN p_Address varchar(45), IN p_City varchar(45), IN p_SSN varchar(45), IN p_ContactPhone varchar(45), IN p_ContactEmail varchar(45), IN p_Password varchar(45), IN p_EmergencyContactName varchar(45), IN p_EmergencyContactPhone varchar(45))

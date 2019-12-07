@@ -107,3 +107,22 @@ INSERT INTO `CS2420`.`PatientDirectory` (`PatientID`, `First`, `Last`, `Sex`, `D
 INSERT INTO `CS2420`.`PatientDirectory` (`PatientID`, `First`, `Last`, `Sex`, `DoB`, `PCPID`, `Address`, `City`, `SSN`, `ContactPhone`, `ContactEmail`, `Password`, `EmergencyContactName`, `EmergencyContactPhone`) VALUES ('104', 'Cher', 'Sarkisian', 'F', '02-14-1969', '301', '43 Grant Ave', 'Des Moines', '736-98-2733', '372-939-9948', 'cher-sarkisian@yahoo.com', 'kdllnq#n%', 'Emma', '374-992-1835');
 INSERT INTO `CS2420`.`PatientDirectory` (`PatientID`, `First`, `Last`, `Sex`, `DoB`, `PCPID`, `Address`, `City`, `SSN`, `ContactPhone`, `ContactEmail`, `Password`, `EmergencyContactName`, `EmergencyContactPhone`) VALUES ('105', 'Michael', 'Langdon', 'M', '06/06/1999', '302', '666 Park Way Dr', 'Iowa City', '666-83-1763', '304-283-2866', 'langdon-michael@gmail.com', '!!nrii*nd', 'Constance', '936-441-1836');
 INSERT INTO `CS2420`.`PatientDirectory` (`PatientID`, `First`, `Last`, `Sex`, `DoB`, `PCPID`, `Address`, `City`, `SSN`, `ContactPhone`, `ContactEmail`, `Password`, `EmergencyContactName`, `EmergencyContactPhone`) VALUES ('106', 'Constance', 'Langdon', 'F', '09/13/1968', '300', '666 Park Way Dr', 'Iowa City', '743-88-2711', '936-441-1836', 'constance-langdon@yahoo.com', '45rrkkN8&', 'Tate', '273-928-3886');
+
+--PROCEDURES--
+delimiter //
+create procedure updatePatient (IN p_PatientID INT, IN p_First varchar(45), IN p_Last varchar(45), IN p_Sex varchar(45), IN p_DoB varchar(45), IN p_PCPID INT, IN p_Address varchar(45), IN p_City varchar(45), IN p_SSN varchar(45), IN p_ContactPhone varchar(45), IN p_ContactEmail varchar(45), IN p_Password varchar(45), IN p_EmergencyContactName varchar(45), IN p_EmergencyContactPhone varchar(45))
+BEGIN
+UPDATE PatientDirectory
+SET `First` = p_First, `Last` = p_Last, Sex = p_Sex, DoB = p_DoB, PCPID = p_PCPID, Address = p_Address, City = p_City, SSN = p_SSN, ContactPhone = p_ContactPhone, ContactEmail = p_ContactEmail, `Password` = p_Password, EmergencyContactName = p_EmergencyContactName, EmergencyContactPhone = p_EmergencyContactPhone
+WHERE PatientID = p_PatientID;
+END//
+delimiter ;
+
+delimiter //
+create procedure updatePhysician (IN p_PhysicianID INT, IN p_First varchar(45), IN p_Last varchar(45), IN p_Sex varchar(45), IN p_DoB varchar(45), IN p_Address varchar(45), IN p_City varchar(45), IN p_Specialty varchar(45), IN `p_Resident/Attending` varchar(45), IN p_ContactPhone varchar(45), IN p_ContactEmail varchar(45), IN p_Password varchar(45))
+BEGIN
+UPDATE PhysicianDirectory
+SET `First` = p_First, `Last` = p_Last, Sex = p_Sex, DoB = p_DoB, Address = p_Address, City = p_City, Specialty = p_Specialty, `Resident/Attending` = `p_Resident/Attending`, ContactPhone = p_ContactPhone, ContactEmail = p_ContactEmail, `Password` = p_Password
+WHERE PhysicianID = p_PhysicianID;
+END//
+delimiter ;

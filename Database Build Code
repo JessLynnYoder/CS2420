@@ -196,6 +196,14 @@ END//
 delimiter ;
 
 delimiter //
+create procedure removeMedication (IN p_PatientID INT, IN p_Medication varchar(45))
+BEGIN
+DELETE FROM MedicationRecords
+WHERE PatientID = p_PatientID AND Medication = p_Medication;
+END//
+delimiter ;
+
+delimiter //
 create procedure addAllergy (IN p_PatientID INT, IN p_Allergy varchar(45))
 BEGIN
 INSERT INTO AllergyRecords

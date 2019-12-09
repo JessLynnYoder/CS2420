@@ -280,3 +280,27 @@ SET Reason = "Test", AmountPaid = 0, AmountDue = 100
 WHERE BillID = 1;
 
 /*--------------------*/
+
+/*Tyler 2*/
+DELIMITER //
+CREATE PROCEDURE patientViewMyProfile(IN p_ID INT)
+BEGIN
+SELECT First, Last, Sex, DoB, Address, City, ContactPhone, ContactEmail, EmergencyContactName, EmergencyContactPhone, PCPID
+INTO @First, @Last, @Sex, @DoB, @Address, @City, @ContactPhone, @ContactEmail, @EmergencyContactName, @EmergencyContactPhone, @PCPID
+FROM PatientDirectory
+WHERE PatientID = p_ID;
+
+SELECT PhysicianID INTO
+@PhysicianID
+FROM PCPDirectory
+WHERE PCPID = @PCPID;
+
+SELECT First, Last
+INTO @PhysicianFirst, @PhysicianLast
+FROM PhysicianDirectory
+WHERE PhysicianID = @PhysicianID;
+
+SELECT @First AS 'First Name', @Last AS 'Last Name', @DoB AS 'Date of Birth', @Address AS 'Address', @City AS 'City', @ContactPhone AS 'Phone Number', @ContactEmail AS 'E-Mail', @PhysicianFirst AS 'Physician', @PhysicianLast
+AS 'Name';
+END//
+DELIMITER ;

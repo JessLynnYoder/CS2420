@@ -136,6 +136,9 @@ SET `First` = p_First, `Last` = p_Last, Sex = p_Sex, DoB = p_DoB, PCPID = p_PCPI
 WHERE PatientID = p_PatientID;
 END//
 delimiter ;
+>>> procIn = [108, 'Kesha', 'Rose', 'F', '11/15/1999', 301, 'Dubuque St', 'Iowa City', '727-37-8831', '736-288-9400', 'kesha-rose@gmail.com', 'eii8(&kdNN', 'Kelly', '151-822-9411']
+>>> cursor.callproc("updatePatient", procIn)
+>>> db1.commit()
 
 delimiter //
 create procedure updatePhysician (IN p_PhysicianID INT, IN p_First varchar(45), IN p_Last varchar(45), IN p_Sex varchar(45), IN p_DoB varchar(45), IN p_Address varchar(45), IN p_City varchar(45), IN p_Specialty varchar(45), IN `p_Resident/Attending` varchar(45), IN p_ContactPhone varchar(45), IN p_ContactEmail varchar(45), IN p_Password varchar(45))
@@ -153,6 +156,9 @@ INSERT INTO PatientDirectory
 SET PatientID = p_PatientID, `First` = p_First, `Last` = p_Last, Sex = p_Sex, DoB = p_DoB, PCPID = p_PCPID, Address = p_Address, City = p_City, SSN = p_SSN, ContactPhone = p_ContactPhone, ContactEmail = p_ContactEmail, `Password` = p_Password, EmergencyContactName = p_EmergencyContactName, EmergencyContactPhone = p_EmergencyContactPhone;
 END//
 delimiter ;
+>>> procIn = [108, 'Kesha', 'Rose', 'F', '11/15/1999', 301, 'Alexander Ave', 'Story City', '727-37-8831', '736-288-9400', 'kesha-rose@gmail.com', 'eii8(&kdNN', 'Kelly', '151-822-9411']
+>>> cursor.callproc("registerPatient", procIn)
+>>> db1.commit()
 
 delimiter //
 create procedure registerPhysician (IN p_PhysicianID INT, IN p_First varchar(45), IN p_Last varchar(45), IN p_Sex varchar(45), IN p_DoB varchar(45), IN p_Address varchar(45), IN p_City varchar(45), IN p_Specialty varchar(45), IN `p_Resident/Attending` varchar(45), IN p_ContactPhone varchar(45), IN p_ContactEmail varchar(45), IN p_Password varchar(45))
@@ -177,6 +183,9 @@ DELETE FROM AppointmentDirectory
 WHERE AppointmentID = p_AppointmentID;
 END//
 delimiter ;
+>>> procIn = [501]
+>>> cursor.callproc("cancelAppointment", procIn)
+>>> db1.commit()
 
 delimiter //
 create procedure editAppointment (IN p_AppointmentID INT, IN p_PatientID INT, IN p_PhysicianID INT, IN p_ApptDate varchar(45), IN p_ApptReason varchar(45))

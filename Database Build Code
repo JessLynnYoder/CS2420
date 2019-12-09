@@ -212,50 +212,32 @@ END//
 delimiter ;
 
 
-Jared Gibbs Test
-
-Test 2
-2
-
-
-
-
-
-
-
-
-
-
-/*Tyler Stored Procedures*/
-
-CALL registerPatient(107, "Tyler", "Schulte", "M", "01/10/1994", 300, "address", "city", "ssn", "phone", "email", "password", "contactname", "conatactnum");
-
-INSERT INTO BillHistory(BillID, PatientID, DateIssued, DateDue, AmountDue, AmountPaid, Reason) 
-	VALUES (1, 107, "12/7/19", "12/9/19", 100, 1, "TEST");
-SELECT * FROM BillHistory;
-
-DELIMITER //
-CREATE PROCEDURE payBill(IN p_BillID INT, IN p_AmountPaying INT)
+#Jared Stored Procedure 1
+CREATE PROCEDURE ViewPatientInformation ()
 BEGIN
-UPDATE BillHistory
-SET 
-	AmountDue = AmountDue - p_AmountPaying, AmountPaid = AmountPaid + p_AmountPaying
-	WHERE BillID = p_BillID;
-UPDATE BillHistory
-SET 
-	Reason = "Bill Paid"
-	WHERE BillID = p_BillID AND AmountDue = 0;
-END//
-DELIMITER ;
-
-/*DEMO*/
-CALL payBill(1, 51);
-SELECT * FROM BillHistory;
-CALL paybill(1,49);
-SELECT * FROM BillHistory;
-
-UPDATE BillHistory
-SET Reason = "Test", AmountPaid = 0, AmountDue = 100
-WHERE BillID = 1;
-
-/*--------------------*/
+SELECT PatientID, First, Last, Sex, DoB, PCPID, Address, City, SSN, ContactPhone, ContactEmail, Password, 
+Emergency ContactName, EmergencyContactPhone
+FROM PatientDirectory
+;
+END $$
+#Jared Stored Procedure 2
+CREATE PROCEDURE ViewPhysicianInformation ()
+BEGIN
+SELECT PhysicianID, Firstt, Lastt, Sex, DoB, Address, City, Specialty, Resident/Attending, ContactPhone, ContactEmail, Passwordd,) 
+FROM PhysicianDirectory
+;
+END $$
+#Stored Procedure 3
+CREATE PROCEDURE KillButton ()
+BEGIN
+Truncate Table:PatientDirectory
+Truncate Table:PhysicianDirectory
+Truncate Table:PCPDirectory
+Truncate Table:AppointmentDirectory
+Truncate Table:BillingRecords
+Truncate Table:BillHistory
+Truncate Table:MedicationRecords
+Truncate Table:AllergyRecords
+Truncate Table:MedicalRecords
+;
+END $$

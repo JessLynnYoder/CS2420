@@ -288,6 +288,16 @@ UPDATE BillHistory
 SET Reason = "Test", AmountPaid = 0, AmountDue = 100
 WHERE BillID = 1;
 
+/*PYTHON CODE payBill
+
+def payBill(billID, amountPaying):
+    cursor = db.cursor()
+    cursor.callproc("CS2420.payBill", (billID, amountPaying))
+    db.commit()
+    cursor.close()
+    db.close()
+    */
+
 /*--------------------*/
 
 /*Tyler 2*/
@@ -313,3 +323,17 @@ SELECT @First AS 'First Name', @Last AS 'Last Name', @DoB AS 'Date of Birth', @A
 AS 'Name';
 END//
 DELIMITER ;
+
+/*PYTHON CODE View Patient Profile
+def patientViewMyProfile(id):
+    cursor = db.cursor()
+    cursor.callproc("CS2420.patientViewMyProfile", (id,))
+    print("Patient Details\n")
+    for result in cursor.stored_results():
+        infoTuple = result.fetchone()
+    print("{0:>10}{1:10}{2:15}{3:20}{4:15}{5:14}{6:30}{7:11}{8}".format("Patient ", "Name", "Date of Birth", "Address", "City", "Phone Number", "E-Mail", "Primary Care", " Physician"))
+    print("----------------------------------------------------------------------------------------------------------------------------------------")
+    print("{0:10}{1:10}{2:15}{3:20}{4:15}{5:14}{6:30}{7:11}{8}".format(infoTuple[0], infoTuple[1], infoTuple[2], infoTuple[3], infoTuple[4], infoTuple[5], infoTuple[6], infoTuple[7], infoTuple[8]))
+    cursor.close()
+    db.close()
+    */

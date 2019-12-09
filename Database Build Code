@@ -220,43 +220,6 @@ SET PatientID = p_PatientID, Allergy = p_Allergy;
 END//
 delimiter ;
 
-
-#Jared Stored Procedure 1
-CREATE PROCEDURE ViewPatientInformation ()
-BEGIN
-SELECT PatientID, First, Last, Sex, DoB, PCPID, Address, City, SSN, ContactPhone, ContactEmail, Password, 
-Emergency ContactName, EmergencyContactPhone
-FROM PatientDirectory
-;
-END $$
-#Jared Stored Procedure 2
-CREATE PROCEDURE ViewPhysicianInformation ()
-BEGIN
-SELECT PhysicianID, Firstt, Lastt, Sex, DoB, Address, City, Specialty, Resident/Attending, ContactPhone, ContactEmail, Passwordd,) 
-FROM PhysicianDirectory
-;
-END $$
-#Stored Procedure 3
-CREATE PROCEDURE KillButton ()
-BEGIN
-Truncate Table:PatientDirectory
-Truncate Table:PhysicianDirectory
-Truncate Table:PCPDirectory
-Truncate Table:AppointmentDirectory
-Truncate Table:BillingRecords
-Truncate Table:BillHistory
-Truncate Table:MedicationRecords
-Truncate Table:AllergyRecords
-Truncate Table:MedicalRecords
-;
-END $$
-
-
-
-
-
-
-
 /*Tyler*/
 CALL registerPatient(107, "Tyler", "Schulte", "M", "01/10/1994", 300, "address", "city", "ssn", "phone", "email", "password", "contactname", "conatactnum");
 
@@ -338,12 +301,13 @@ def patientViewMyProfile(id):
     db.close()
     */
     
-Use Project;
+Use CS2420;
 
 #Procedure: View Patients Basic Information
+#Jared
 delimiter $$
 
-#Jared Stored Procedure 1
+#1
 CREATE PROCEDURE ViewPatientInformation ()
 BEGIN
 SELECT PatientID, First, Last, Sex, DoB, PCPID, Address, City, SSN, ContactPhone, ContactEmail, Password, 
@@ -367,10 +331,10 @@ def  ViewPatientInformation(PatientID):
     db.close()
 */
 
-#Jared Stored Procedure 2
+#2
 CREATE PROCEDURE ViewPhysicianInformation ()
 BEGIN
-SELECT PhysicianID, First, Last, Sex, DoB, Address, City, Specialty, Resident/Attending, ContactPhone, ContactEmail, Password,) 
+SELECT PhysicianID, First, Last, Sex, DoB, Address, City, Specialty, Resident/Attending, ContactPhone, ContactEmail,Password
 FROM PhysicianDirectory
 ;
 #Procedure displays all available physician information
@@ -390,19 +354,19 @@ def ViewPhysicianInformation(PhysicianID):
     cursor.close()
     db.close()
 */
-#Jared Stored Procedure 3
+#3
 CREATE PROCEDURE KillButton()
 BEGIN
-Truncate Table:PatientDirectory
-Truncate Table:PhysicianDirectory
-Truncate Table:PCPDirectory
-Truncate Table:AppointmentDirectory
-Truncate Table:BillingRecords
-Truncate Table:BillHistory
-Truncate Table:MedicationRecords
-Truncate Table:AllergyRecords
-Truncate Table:MedicalRecords
-;
+Truncate Table PatientDirectory;
+Truncate Table PhysicianDirectory;
+Truncate Table PCPDirectory;
+Truncate Table AppointmentDirectory;
+Truncate Table BillingRecords;
+Truncate Table BillHistory;
+Truncate Table MedicationRecords;
+Truncate Table AllergyRecords;
+Truncate Table MedicalRecords;
+
 #Code erases all data in active databases
 END $$
 /*
@@ -419,10 +383,10 @@ def KillButton():
     cursor.close()
     db.close()
 */
-#Jared Stored Procedure 4
+#4
 CREATE PROCEDURE ShowAppointments ()
 BEGIN
-SELECT AppointmentID, PatientID, Apptdate, Apptreason,
+SELECT AppointmentID, PatientID, Apptdate, Apptreason
 FROM AppointmentDirectory
 ;
 #Procedure displays appointment information for all available appointments
@@ -441,7 +405,7 @@ def ShowAppointment():
     cursor.close()
     db.close()
 */
-#Jared Stored Procedure 5
+#5
 CREATE PROCEDURE ShowBillingRecords ()
 BEGIN
 SELECT PatientID, Insurance
@@ -462,7 +426,7 @@ def BillingRecords(PatientID):
     cursor.close()
     db.close()
 */
-#Jared Stored Procedure 6 
+#6 
 CREATE PROCEDURE ShowMedicalRecords ()
 BEGIN
 SELECT PatientID, Diagnosis
@@ -485,7 +449,7 @@ def ShowMedicalRecords(PatientID):
     db.close()
 */
 
-#Jared Stored Procedure 7 
+#7 
 CREATE PROCEDURE ShowAllergyRecords ()
 BEGIN
 SELECT PatientID, Diagnosis, Notes

@@ -337,3 +337,173 @@ def patientViewMyProfile(id):
     cursor.close()
     db.close()
     */
+    
+    ###
+Use Project;
+
+#Procedure: View Patients Basic Information
+delimiter $$
+
+#Jared Stored Procedure 1
+CREATE PROCEDURE ViewPatientInformation ()
+BEGIN
+SELECT PatientID, First, Last, Sex, DoB, PCPID, Address, City, SSN, ContactPhone, ContactEmail, Password, 
+Emergency ContactName, EmergencyContactPhone
+FROM PatientDirectory
+;
+#Procedure displays all available patient information
+END $$
+
+/*
+import mysql
+connect_args = {"host": "127.0.0.1","port": 3306,"user": "root","password": "***", "db": "CS2420"};
+db = mysql.connector.connect(**connect_args)
+def  ViewPatientInformation(PatientID:
+    cursor = db.cursor()
+    cursor.callproc("CS2420.PatientDirectory", (PatientID,))
+    print("Patient Details")
+    for result in cursor.stored_results():
+        print(result.fetchone())
+    cursor.close()
+    db.close()
+*/
+
+#Jared Stored Procedure 2
+CREATE PROCEDURE ViewPhysicianInformation ()
+BEGIN
+SELECT PhysicianID, Firstt, Lastt, Sex, DoB, Address, City, Specialty, Resident/Attending, ContactPhone, ContactEmail, Passwordd,) 
+FROM PhysicianDirectory
+;
+#Procedure displays all available physician information
+END $$
+
+/*
+import mysql
+connect_args = {"host": "127.0.0.1","port": 3306,"user": "root","password": "***", "db": "CS2420"};
+db = mysql.connector.connect(**connect_args)
+
+def ViewPhysicianInformation(PhysicianID):
+    cursor = db.cursor()
+    cursor.callproc("CS2420.PhysicianDirectory", (PhysicianID,))
+    print("Physician Details")
+    for result in cursor.stored_results():
+        print(result.fetchone())
+    cursor.close()
+    db.close()
+*/
+#Jared Stored Procedure 3
+CREATE PROCEDURE KillButton()
+BEGIN
+Truncate Table:PatientDirectory
+Truncate Table:PhysicianDirectory
+Truncate Table:PCPDirectory
+Truncate Table:AppointmentDirectory
+Truncate Table:BillingRecords
+Truncate Table:BillHistory
+Truncate Table:MedicationRecords
+Truncate Table:AllergyRecords
+Truncate Table:MedicalRecords
+;
+#Code erases all data in active databases
+END $$
+/*
+import mysql
+connect_args = {"host": "127.0.0.1","port": 3306,"user": "root","password": "***", "db": "CS2420"};
+db = mysql.connector.connect(**connect_args)
+
+def KillButton():
+    cursor = db.cursor()
+    cursor.callproc("CS2420")
+    print("Database Terminated")
+    for result in cursor.stored_results():
+        print(result.fetchone())
+    cursor.close()
+    db.close()
+*/
+#Jared Stored Procedure 4
+CREATE PROCEDURE ShowAppointments ()
+BEGIN
+SELECT AppointmentID, PatientID, Apptdate, Apptreason,
+FROM AppointmentDirectory
+;
+#Procedure displays appointment information for all available appointments
+END $$
+/*
+import mysql
+connect_args = {"host": "127.0.0.1","port": 3306,"user": "root","password": "***", "db": "CS2420"};
+db = mysql.connector.connect(**connect_args)
+
+def ShowAppointment():
+    cursor = db.cursor()
+    cursor.callproc("CS2420",AppointmentDirectory())
+    print("Appointment Details")
+    for result in cursor.stored_results():
+        print(result.fetchone())
+    cursor.close()
+    db.close()
+*/
+#Jared Stored Procedure 5
+CREATE PROCEDURE ShowBillingRecords ()
+BEGIN
+SELECT PatientID, Insurance
+FROM BillingRecords
+;
+#Procedure displays all available information for billing records
+END $$
+/*
+import mysql
+connect_args = {"host": "127.0.0.1","port": 3306,"user": "root","password": "***", "db": "CS2420"};
+db = mysql.connector.connect(**connect_args)
+def BillingRecords(PatientID):
+    cursor = db.cursor()
+    cursor.callproc("CS2420.BillingRecords", (PatienID))
+    print("Billing Details")
+    for result in cursor.stored_results():
+        print(result.fetchone())
+    cursor.close()
+    db.close()
+*/
+#Jared Stored Procedure 6 
+CREATE PROCEDURE ShowMedicalRecords ()
+BEGIN
+SELECT PatientID, Diagnosis
+FROM MedicalRecords
+;
+#Procedure displays all available information for medical records
+END $$
+
+/*
+import mysql
+connect_args = {"host": "127.0.0.1","port": 3306,"user": "root","password": "***", "db": "CS2420"};
+db = mysql.connector.connect(**connect_args)
+def MedicalRecords(PatientID):
+    cursor = db.cursor()
+    cursor.callproc("CS2420.BillingRecords", (PatientID))
+    print("Medical Details")
+    for result in cursor.stored_results():
+        print(result.fetchone())
+    cursor.close()
+    db.close()
+*/
+
+#Jared Stored Procedure 7 
+CREATE PROCEDURE ShowAllergyRecords ()
+BEGIN
+SELECT PatientID, Diagnosis, Notes
+FROM AllergyRecords
+;
+#Procedure displays all available information for allergy records
+END $$
+/*
+import mysql
+connect_args = {"host": "127.0.0.1","port": 3306,"user": "root","password": "***", "db": "CS2420"};
+db = mysql.connector.connect(**connect_args)
+def AllergyRecords(PatientID):
+    cursor = db.cursor()
+    cursor.callproc("CS2420.AllergyRecords",(PatientID))
+    print("Allergry Details")
+    for result in cursor.stored_results():
+        print(result.fetchone())
+    cursor.close()
+    db.close()
+*/

@@ -79,14 +79,8 @@ def ShowAppointment():
     db.close()
     
     
-####################################################    
-####Login Functions
-#Global Variables
-loginAttempt = 0
-
-userTypes = ['1','2']
-userType = 0
-
+####################################################  
+#User Interface Implementing Functions
 def patientLogin(x,y):
     global loginAttempt
     cursor.callproc("CS2420.PatientLogin",(x,y))
@@ -106,22 +100,55 @@ def physicianLogin(x,y):
         loginAttempt = 1
     else:
         loginAttempt = 0
-    
+
+def patientViewMyProfile(id):
+    cursor = db.cursor()
+    cursor.callproc("CS2420.patientViewMyProfile", (id,))
+    print("\nPatient Details\n")
+    for result in cursor.stored_results():
+        infoTuple = result.fetchone()
+    print("{0:>10}{1:10}{2:15}{3:20}{4:15}{5:14}{6:30}{7:11}{8}".format("Patient ", "Name", "Date of Birth", "Address", "City", "Phone Number", "E-Mail", "Primary Care", " Physician"))
+    print("----------------------------------------------------------------------------------------------------------------------------------------")
+    print("{0:10}{1:10}{2:15}{3:20}{4:15}{5:14}{6:30}{7:11}{8}".format(infoTuple[0], infoTuple[1], infoTuple[2], infoTuple[3], infoTuple[4], infoTuple[5], infoTuple[6], infoTuple[7], infoTuple[8]))
+
+def viewPatientBill(id):
+    cursor.callproc("CS2420.ShowPatientsBill",(id,))
+    print("\nBill History\n")
+    for result in cursor.stored_results():
+        billTuple = result.fetchone()
+    print("{0:12}{1:13}{2:10}{3:12}{4:13}{5:20}".format("Patient ID ", "Date Issued", "Date Due", "Amount Due", "Amount Paid", "Reason"))
+    print("------------------------------------------------------------------")
+    print("{0:<12}{1:13}{2:10}{3:^12}{4:^13}{5:20}".format(billTuple[0], billTuple[1], billTuple[2], billTuple[3], billTuple[4], billTuple[5]))
+
+
+#Global Variables
+loginAttempt = 0
+
+userTypes = ['1','2']
+userType = 0
+userID = int
+
+
+#User Interface Start
+
 #Choose User Type and if invalid user type loops back
 while userType not in userTypes:
     print("Select User Type")
     print("{0:15}{1}".format("Patient:", "1"))
     print("{0:15}{1}".format("Physician:", "2"))
-    userType = input()
+    print("\n")
+    userType = input("Enter User Type: ")
     if userType not in userTypes:
         print("\nInvalid User Type. Please Try Again\n")
 
 
 #Login Loop that continues until valid userid and password submitted
+#Different Login loops depending on the usertype
 if userType == '1':
     while loginAttempt == 0:
-        userID = input("USERID: ")
-        password = input("PASSWORD: ")
+        print("\n")
+        userID = input("Enter USERID: ")
+        password = input("Enter PASSWORD: ")
 
         patientLogin(userID, password)
         if loginAttempt == 0:
@@ -129,14 +156,44 @@ if userType == '1':
 
 if userType == '2':
     while loginAttempt == 0:
-        userID = input("USERID: ")
-        password = input("PASSWORD: ")
+        userID = input("Enter USERID: ")
+        password = input("Enter PASSWORD: ")
 
         physicianLogin(userID, password)
         if loginAttempt == 0:
             print("\nIncorrect UserID or Password. Please Try Again\n")
+
+
+patientInputOptions = ['1','2', '3','6']    
+patientOptionInput = '1'
+#Patient Screen
+while patientOptionInput == '1':
+    print("\n========================================================================================================================================\n")
+    print("{0:15}{1}".format("Home:", "1"))
+    print("{0:15}{1}".format("View Profile:", "2"))
+    print("{0:15}{1}".format("Billing:", "3"))
+    print("{0:15}{1}".format("Logout:", "6\n"))
     
+    patientOptionInput = input()
+    #Test Valid PatientInput, resets loop if invalid
+    if patientOptionInput not in patientInputOptions:
+        print("Invalid Input. Please Try Again")
+        patientOptionInput = input()
+    #Patient View Profile, redirects home after displaying profile
+    if patientOptionInput == '2':
+        patientViewMyProfile(userID)
+        patientOptionInput = '1'
+    #Billing, then gives option to pay bill or return Home
+    if patientOptionInput == '3':
+        viewPatientBill(userID)
+        patientOptionInput = '1'
+        
+    #logout
+    if patientOptionInput == '6':
+        patientOptionInput = '6'
+
+
 
 cursor.close()
-db.close()
+db.close(
 ##################################################################

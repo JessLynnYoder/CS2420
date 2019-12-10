@@ -77,3 +77,66 @@ def ShowAppointment():
         print(result.fetchone())
     cursor.close()
     db.close()
+    
+    
+####################################################    
+####Login Functions
+#Global Variables
+loginAttempt = 0
+
+userTypes = ['1','2']
+userType = 0
+
+def patientLogin(x,y):
+    global loginAttempt
+    cursor.callproc("CS2420.PatientLogin",(x,y))
+    for result in cursor.stored_results():
+        loginAttempt = result.fetchone()
+    if loginAttempt == (1,):
+        loginAttempt = 1
+    else:
+        loginAttempt = 0
+
+def physicianLogin(x,y):
+    global loginAttempt
+    cursor.callproc("CS2420.PhysicianLogin",(x,y))
+    for result in cursor.stored_results():
+        loginAttempt = result.fetchone()
+    if loginAttempt == (1,):
+        loginAttempt = 1
+    else:
+        loginAttempt = 0
+    
+#Choose User Type and if invalid user type loops back
+while userType not in userTypes:
+    print("Select User Type")
+    print("{0:15}{1}".format("Patient:", "1"))
+    print("{0:15}{1}".format("Physician:", "2"))
+    userType = input()
+    if userType not in userTypes:
+        print("\nInvalid User Type. Please Try Again\n")
+
+
+#Login Loop that continues until valid userid and password submitted
+if userType == '1':
+    while loginAttempt == 0:
+        userID = input("USERID: ")
+        password = input("PASSWORD: ")
+
+        patientLogin(userID, password)
+        if loginAttempt == 0:
+            print("\nIncorrect UserID or Password. Please Try Again\n")
+
+if userType == '2':
+    while loginAttempt == 0:
+        userID = input("USERID: ")
+        password = input("PASSWORD: ")
+
+        physicianLogin(userID, password)
+        if loginAttempt == 0:
+            print("\nIncorrect UserID or Password. Please Try Again\n")
+    
+
+cursor.close()
+db.close()
+##################################################################

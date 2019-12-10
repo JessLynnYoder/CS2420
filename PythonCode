@@ -1,0 +1,79 @@
+import mysql.connector
+connect_args = {"host": "127.0.0.1","port": 3306,"user": "root","password": "***", "db": "CS2420"};
+db = mysql.connector.connect(**connect_args)
+cursor = db.cursor()
+
+
+
+
+def patientViewMyProfile(id):
+    cursor = db.cursor()
+    cursor.callproc("CS2420.patientViewMyProfile", (id,))
+    print("Patient Details\n")
+    for result in cursor.stored_results():
+        infoTuple = result.fetchone()
+    print("{0:>10}{1:10}{2:15}{3:20}{4:15}{5:14}{6:30}{7:11}{8}".format("Patient ", "Name", "Date of Birth", "Address", "City", "Phone Number", "E-Mail", "Primary Care", " Physician"))
+    print("----------------------------------------------------------------------------------------------------------------------------------------")
+    print("{0:10}{1:10}{2:15}{3:20}{4:15}{5:14}{6:30}{7:11}{8}".format(infoTuple[0], infoTuple[1], infoTuple[2], infoTuple[3], infoTuple[4], infoTuple[5], infoTuple[6], infoTuple[7], infoTuple[8]))
+    cursor.close()
+    db.close()
+
+def payBill(billID, amountPaying):
+    cursor = db.cursor()
+    cursor.callproc("CS2420.payBill", (billID, amountPaying))
+    db.commit()
+    cursor.close()
+    db.close()
+
+
+
+    
+
+
+def ViewPhysicianInformation():
+    cursor = db.cursor()
+    cursor.callproc("CS2420.ViewPhysicianInformation")
+    print("Physician Details")
+    for result in cursor.stored_results():
+        print(result.fetchall())
+    cursor.close()
+    db.close()
+
+#procIn = [112, 'Kesha', 'Rose', 'F', '11/15/1999', 301, 'Dubuque St', 'Iowa City', '727-37-8831', '736-288-9400', 'kesha-rose@gmail.com', 'eii8(&kdNN', 'Kelly', '151-822-9411']#
+#cursor.callproc("updatePatient", procIn)
+#db.commit()
+
+
+#procIn = [112, 'Kesha', 'Rose', 'F', '11/15/1999', 301, 'Alexander Ave', 'Story City', '727-37-8831', '736-288-9400', 'kesha-rose@gmail.com', 'eii8(&kdNN', 'Kelly', '151-822-9411']
+#cursor.callproc("registerPatient", procIn)
+#db.commit()
+
+
+#procIn = [501]
+#cursor.callproc("cancelAppointment", procIn)
+#db.commit()
+
+
+
+
+
+
+def  ViewPatientInformation():
+    cursor = db.cursor()
+    cursor.callproc("CS2420.ViewPatientInformation")
+    print("Patient Details")
+    for result in cursor.stored_results():
+        print(result.fetchall())
+    cursor.close()
+    db.close()
+
+
+
+def ShowAppointment():
+    cursor = db.cursor()
+    cursor.callproc("CS2420.ShowAppointments")
+    print("Appointment Details")
+    for result in cursor.stored_results():
+        print(result.fetchone())
+    cursor.close()
+    db.close()

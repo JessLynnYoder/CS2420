@@ -302,11 +302,8 @@ def patientViewMyProfile(id):
     */
     
 Use CS2420;
-
-#Procedure: View Patients Basic Information
 #Jared
 delimiter $$
-
 #1
 CREATE PROCEDURE ViewPatientInformation ()
 BEGIN
@@ -316,21 +313,19 @@ FROM PatientDirectory
 ;
 #Procedure displays all available patient information
 END $$
-
 /*
 import mysql
 connect_args = {"host": "127.0.0.1","port": 3306,"user": "root","password": "***", "db": "CS2420"};
 db = mysql.connector.connect(**connect_args)
-def  ViewPatientInformation(PatientID):
+def  ViewPatientInformation():
     cursor = db.cursor()
-    cursor.callproc(“ViewPatientInformation”, PatientID)
+    cursor.callproc("CS2420.ViewPatientInformation")
     print("Patient Details")
     for result in cursor.stored_results():
-        print(result.fetchone())
+        print(result.fetchall())
     cursor.close()
     db.close()
 */
-
 #2
 CREATE PROCEDURE ViewPhysicianInformation ()
 BEGIN
@@ -345,12 +340,12 @@ import mysql
 connect_args = {"host": "127.0.0.1","port": 3306,"user": "root","password": "***", "db": "CS2420"};
 db = mysql.connector.connect(**connect_args)
 
-def ViewPhysicianInformation(PhysicianID):
+def ViewPhysicianInformation():
     cursor = db.cursor()
-    cursor.callproc(“ViewPhysicianInformation”, PhysicianID)
+    cursor.callproc("CS2420.ViewPhysicianInformation")
     print("Physician Details")
     for result in cursor.stored_results():
-        print(result.fetchone())
+        print(result.fetchall())
     cursor.close()
     db.close()
 */
@@ -366,7 +361,6 @@ Truncate Table BillHistory;
 Truncate Table MedicationRecords;
 Truncate Table AllergyRecords;
 Truncate Table MedicalRecords;
-
 #Code erases all data in active databases
 END $$
 /*
@@ -376,7 +370,7 @@ db = mysql.connector.connect(**connect_args)
 
 def KillButton():
     cursor = db.cursor()
-    cursor.callproc(“KillButton”,””)
+    cursor.callproc(“CS2420.KillButton”)
     print("Database Terminated")
     for result in cursor.stored_results():
         print(result.fetchone())
@@ -398,7 +392,7 @@ db = mysql.connector.connect(**connect_args)
 
 def ShowAppointment():
     cursor = db.cursor()
-    cursor.callproc(“ShowAppointment”,””)
+    cursor.callproc(“CS2420.ShowAppointment")
     print("Appointment Details")
     for result in cursor.stored_results():
         print(result.fetchone())
@@ -419,7 +413,7 @@ connect_args = {"host": "127.0.0.1","port": 3306,"user": "root","password": "***
 db = mysql.connector.connect(**connect_args)
 def BillingRecords(PatientID):
     cursor = db.cursor()
-    cursor.callproc(“ShowBillingRecords", PatientID)
+    cursor.callproc(“CS2420.ShowBillingRecords", (PatientID,))
     print("Billing Details")
     for result in cursor.stored_results():
         print(result.fetchone())
@@ -441,7 +435,7 @@ connect_args = {"host": "127.0.0.1","port": 3306,"user": "root","password": "***
 db = mysql.connector.connect(**connect_args)
 def ShowMedicalRecords(PatientID):
     cursor = db.cursor()
-    cursor.callproc(“ShowMedicalRecords”, PatientID)
+    cursor.callproc(“CS2420.ShowMedicalRecords”, (PatientID,))
     print("Medical Details")
     for result in cursor.stored_results():
         print(result.fetchone())
@@ -463,7 +457,7 @@ connect_args = {"host": "127.0.0.1","port": 3306,"user": "root","password": "***
 db = mysql.connector.connect(**connect_args)
 def ShowAllergyRecords(PatientID):
     cursor = db.cursor()
-    cursor.callproc(“ShowAllergyRecords",PatientID)
+    cursor.callproc(“CS2420.ShowAllergyRecords", (PatientID,))
     print("Allergry Details")
     for result in cursor.stored_results():
         print(result.fetchone())

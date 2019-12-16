@@ -1,0 +1,609 @@
+/*Team 5 Final Working Software*/
+/*Tyler Schulte, Jared Gibbs, Jessica Yoder*/
+
+/*DDL*/
+CREATE DATABASE CS2420TEAM5;
+USE CS2420TEAM5;
+
+CREATE TABLE `PatientDirectory` (
+  `PatientID` INT NOT NULL,
+  `First` VARCHAR(45) NULL,
+  `Last` VARCHAR(45) NULL,
+  `Sex` VARCHAR(45) NULL,
+  `DoB` VARCHAR(45) NULL,
+  `PCPID` INT NULL,
+  `Address` VARCHAR(45) NULL,
+  `City` VARCHAR(45) NULL,
+  `SSN` VARCHAR(45) NULL,
+  `ContactPhone` VARCHAR(45) NULL,
+  `ContactEmail` VARCHAR(45) NULL,
+  `Password` VARCHAR(45) NULL,
+  `EmergencyContactName` VARCHAR(45) NULL,
+  `EmergencyContactPhone` VARCHAR(45) NULL,
+  PRIMARY KEY (`PatientID`)
+  );
+  
+  CREATE TABLE `PhysicianDirectory` (
+  `PhysicianID` INT NOT NULL,
+  `First` VARCHAR(45) NULL,
+  `Last` VARCHAR(45) NULL,
+  `Sex` VARCHAR(45) NULL,
+  `DoB` VARCHAR(45) NULL,
+  `Address` VARCHAR(45) NULL,
+  `City` VARCHAR(45) NULL,
+  `Specialty` VARCHAR(45) NULL,
+  `Resident/Attending` VARCHAR(45) NULL,
+  `ContactPhone` VARCHAR(45) NULL,
+  `ContactEmail` VARCHAR(45) NULL,
+  `Password` VARCHAR(45) NULL,
+  PRIMARY KEY (`PhysicianID`)
+  );
+  
+  CREATE TABLE PCPDirectory (
+    PCPID INT NOT NULL,
+    PhysicianID INT NOT NULL,
+    PRIMARY KEY (PCPID),
+    FOREIGN KEY (PhysicianID) REFERENCES PhysicianDirectory(PhysicianID)
+    );
+    
+CREATE TABLE AppointmentDirectory (
+    AppointmentID INT NOT NULL,
+    PatientID INT NOT NULL,
+	PhysicianID INT NOT NULL,
+    ApptDate VARCHAR(45) NOT NULL,
+    ApptReason VARCHAR(45),
+    PRIMARY KEY (AppointmentID),
+	FOREIGN KEY (PatientID) REFERENCES PatientDirectory(PatientID),
+    FOREIGN KEY (PhysicianID) REFERENCES PhysicianDirectory(PhysicianID)
+);
+
+CREATE TABLE BillingRecords (
+    PatientID INT NOT NULL,
+    Insurance VARCHAR(45),
+	FOREIGN KEY (PatientID) REFERENCES PatientDirectory(PatientID)
+);
+
+CREATE TABLE BillHistory (
+	BillID INT NOT NULL,
+    PatientID INT NOT NULL,
+    DateIssued VARCHAR(45),
+    DateDue VARCHAR(45),
+    AmountDue INT,
+    AmountPaid INT,
+    Reason VARCHAR(45),
+    PRIMARY KEY (BillID),
+	FOREIGN KEY (PatientID) REFERENCES PatientDirectory(PatientID)
+);
+
+CREATE TABLE MedicationRecords (
+    PatientID INT NOT NULL,
+    Medication VARCHAR(45),
+	FOREIGN KEY (PatientID) REFERENCES PatientDirectory(PatientID)
+);
+
+CREATE TABLE AllergyRecords (
+    PatientID INT NOT NULL,
+    Allergy VARCHAR(45),
+	FOREIGN KEY (PatientID) REFERENCES PatientDirectory(PatientID)
+);
+
+CREATE TABLE MedicalRecords (
+    PatientID INT NOT NULL,
+    Diagnosis VARCHAR(45),
+    Notes VARCHAR(200),
+	FOREIGN KEY (PatientID) REFERENCES PatientDirectory(PatientID)
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*Data Population*/
+
+INSERT INTO `PhysicianDirectory` (`PhysicianID`, `First`, `Last`, `Sex`, `DoB`, `Address`, `City`, `Specialty`, `Resident/Attending`, `ContactPhone`, `ContactEmail`, `Password`) VALUES ('1', 'Allen', 'Ginsberg', 'M', '03/02/1965', '435 Baker St', 'Des Moines', 'Radiology', 'Attending', '324-564-9687', 'allen-ginsberg@gmail.com', '1');
+INSERT INTO `PhysicianDirectory` (`PhysicianID`, `First`, `Last`, `Sex`, `DoB`, `Address`, `City`, `Specialty`, `Resident/Attending`, `ContactPhone`, `ContactEmail`, `Password`) VALUES ('200', 'Allen', 'Ginsberg', 'M', '03/02/1965', '435 Baker St', 'Des Moines', 'Radiology', 'Attending', '324-564-9687', 'allen-ginsberg@gmail.com', '2k48dn@A');
+INSERT INTO `PhysicianDirectory` (`PhysicianID`, `First`, `Last`, `Sex`, `DoB`, `Address`, `City`, `Specialty`, `Resident/Attending`, `ContactPhone`, `ContactEmail`, `Password`) VALUES ('201', 'Lucien', 'Carr', 'M', '12/23/1981', '54 Van Buren', 'Des Moines', 'Dermatology', 'Attending', '453-395-2549', 'lucien-carr@yahoo.com', '#4KbdsK');
+INSERT INTO `PhysicianDirectory` (`PhysicianID`, `First`, `Last`, `Sex`, `DoB`, `Address`, `City`, `Specialty`, `Resident/Attending`, `ContactPhone`, `ContactEmail`, `Password`) VALUES ('202', 'Jack', 'Kerouac', 'M', '06/30/1987', '43 Gilbert Ave', 'Ames', 'Anesthesiology', 'Resident', '843-223-3881', 'kerouac-jack@gmail.com', '848**dnsmd');
+INSERT INTO `PhysicianDirectory` (`PhysicianID`, `First`, `Last`, `Sex`, `DoB`, `Address`, `City`, `Specialty`, `Resident/Attending`, `ContactPhone`, `ContactEmail`, `Password`) VALUES ('203', 'Meryl', 'Streep', 'F', '08/31/1990', '784 Allen St', 'Ames', 'Neurology', 'Resident', '364-837-2773', 'streep-meryl@yahoo.com', 'sta$%jdN');
+INSERT INTO `PhysicianDirectory` (`PhysicianID`, `First`, `Last`, `Sex`, `DoB`, `Address`, `City`, `Specialty`, `Resident/Attending`, `ContactPhone`, `ContactEmail`, `Password`) VALUES ('204', 'Janelle', 'Monae', 'F', '10/10/1981', '522 Madison Ln', 'Des Moines', 'Gynecologic Oncology', 'Attending', '4739282971', 'janelle-monae@gmail.com', 'djek!!nKLh');
+
+INSERT INTO `PCPDirectory` (`PCPID`, `PhysicianID`) VALUES ('300', '200');
+INSERT INTO `PCPDirectory` (`PCPID`, `PhysicianID`) VALUES ('301', '201');
+INSERT INTO `PCPDirectory` (`PCPID`, `PhysicianID`) VALUES ('302', '204');
+
+INSERT INTO `PatientDirectory` (`PatientID`, `First`, `Last`, `Sex`, `DoB`, `PCPID`, `Address`, `City`, `SSN`, `ContactPhone`, `ContactEmail`, `Password`, `EmergencyContactName`, `EmergencyContactPhone`) VALUES ('1', 'Constance', 'Langdon', 'F', '09/13/1968', '300', '666 Park Way Dr', 'Iowa City', '743-88-2711', '936-441-1836', 'constance-langdon@yahoo.com', '1', 'Tate', '273-928-3886');
+INSERT INTO `PatientDirectory` (`PatientID`, `First`, `Last`, `Sex`, `DoB`, `PCPID`, `Address`, `City`, `SSN`, `ContactPhone`, `ContactEmail`, `Password`, `EmergencyContactName`, `EmergencyContactPhone`) VALUES ('100', 'Jamie', 'Oliver', 'M', '12/20/1979', '300', '722 Red River Rd', 'Ames', '513-36-5299', '623-948-3721', 'jamie-oliver@gmail.com', 'dksn##Kdns', 'Ada', '734-381-3841');
+INSERT INTO `PatientDirectory` (`PatientID`, `First`, `Last`, `Sex`, `DoB`, `PCPID`, `Address`, `City`, `SSN`, `ContactPhone`, `ContactEmail`, `Password`, `EmergencyContactName`, `EmergencyContactPhone`) VALUES ('101', 'Gordon', 'Ramsay', 'M', '01/31/1965', '301', '4387 Iowa Ave', 'Des Moines', '736-36-3841', '362-489-9472', 'ramsay-gordon@yahoo.com', 'ksnnkd986#', 'Gemma', '732-443-2998');
+INSERT INTO `PatientDirectory` (`PatientID`, `First`, `Last`, `Sex`, `DoB`, `PCPID`, `Address`, `City`, `SSN`, `ContactPhone`, `ContactEmail`, `Password`, `EmergencyContactName`, `EmergencyContactPhone`) VALUES ('102', 'Ava', 'Greene', 'F', '08/27/1973', '302', '111 Van Allen Dr', 'Iowa City', '513-76-2832', '475-939-2800', 'ava-greene@gmail.com', 'skdn$$#ndkL', 'Karl', '723-221-0933');
+INSERT INTO `PatientDirectory` (`PatientID`, `First`, `Last`, `Sex`, `DoB`, `PCPID`, `Address`, `City`, `SSN`, `ContactPhone`, `ContactEmail`, `Password`, `EmergencyContactName`, `EmergencyContactPhone`) VALUES ('103', 'Britney', 'Spears', 'F', '04/03/1991', '300', '63 Monroe Ave', 'Story City', '384-92-1882', '485-948-3841', 'britney-spears@gmail.com', 'iieNNK#@', 'Robert', '482-394-2994');
+INSERT INTO `PatientDirectory` (`PatientID`, `First`, `Last`, `Sex`, `DoB`, `PCPID`, `Address`, `City`, `SSN`, `ContactPhone`, `ContactEmail`, `Password`, `EmergencyContactName`, `EmergencyContactPhone`) VALUES ('104', 'Cher', 'Sarkisian', 'F', '02-14-1969', '301', '43 Grant Ave', 'Des Moines', '736-98-2733', '372-939-9948', 'cher-sarkisian@yahoo.com', 'kdllnq#n%', 'Emma', '374-992-1835');
+INSERT INTO `PatientDirectory` (`PatientID`, `First`, `Last`, `Sex`, `DoB`, `PCPID`, `Address`, `City`, `SSN`, `ContactPhone`, `ContactEmail`, `Password`, `EmergencyContactName`, `EmergencyContactPhone`) VALUES ('105', 'Michael', 'Langdon', 'M', '06/06/1999', '302', '666 Park Way Dr', 'Iowa City', '666-83-1763', '304-283-2866', 'langdon-michael@gmail.com', '!!nrii*nd', 'Constance', '936-441-1836');
+INSERT INTO `PatientDirectory` (`PatientID`, `First`, `Last`, `Sex`, `DoB`, `PCPID`, `Address`, `City`, `SSN`, `ContactPhone`, `ContactEmail`, `Password`, `EmergencyContactName`, `EmergencyContactPhone`) VALUES ('106', 'Constance', 'Langdon', 'F', '09/13/1968', '300', '666 Park Way Dr', 'Iowa City', '743-88-2711', '936-441-1836', 'constance-langdon@yahoo.com', '45rrkkN8&', 'Tate', '273-928-3886');
+INSERT INTO `PatientDirectory` (`PatientID`, `First`, `Last`, `Sex`, `DoB`, `PCPID`, `Address`, `City`, `SSN`, `ContactPhone`, `ContactEmail`, `Password`, `EmergencyContactName`, `EmergencyContactPhone`) VALUES ('107', 'Constance', 'Langdon', 'F', '09/13/1968', '300', '666 Park Way Dr', 'Iowa City', '743-88-2711', '936-441-1836', 'constance-langdon@yahoo.com', '45rrkkN8&', 'Tate', '273-928-3886');
+INSERT INTO `PatientDirectory` (`PatientID`, `First`, `Last`, `Sex`, `DoB`, `PCPID`, `Address`, `City`, `SSN`, `ContactPhone`, `ContactEmail`, `Password`, `EmergencyContactName`, `EmergencyContactPhone`) VALUES ('108', 'Constance', 'Langdon', 'F', '09/13/1968', '300', '666 Park Way Dr', 'Iowa City', '743-88-2711', '936-441-1836', 'constance-langdon@yahoo.com', 'password', 'Tate', '273-928-3886');
+
+
+INSERT INTO `AppointmentDirectory` (`AppointmentID`, `PatientID`, `PhysicianID`, `ApptDate`, `ApptReason`) VALUES (500, 100, 200, '12/01/2019', 'Headaches');
+INSERT INTO `AppointmentDirectory` (`AppointmentID`, `PatientID`, `PhysicianID`, `ApptDate`, `ApptReason`) VALUES ('501', '101', '201', '12/19/2019', 'Checkup');
+
+INSERT INTO `MedicationRecords`(`PatientID`,`Medication`) VALUES (102,'Vicodin');
+INSERT INTO `MedicationRecords`(`PatientID`,`Medication`) VALUES (102,'Lipitor');
+INSERT INTO `MedicationRecords`(`PatientID`,`Medication`) VALUES (103,'Simvastatin');
+INSERT INTO `MedicationRecords`(`PatientID`,`Medication`) VALUES (104,'Metformin');
+INSERT INTO `MedicationRecords`(`PatientID`,`Medication`) VALUES (106,'Azithromycin');
+INSERT INTO `MedicationRecords`(`PatientID`,`Medication`) VALUES (106,'Amlodipine');
+INSERT INTO `MedicationRecords`(`PatientID`,`Medication`) VALUES (106,'Vicodin');
+
+INSERT INTO `AllergyRecords`(`PatientID`,`Allergy`) VALUES (100,'Pollen');
+INSERT INTO `AllergyRecords`(`PatientID`,`Allergy`) VALUES (101,'Tree nuts');
+INSERT INTO `AllergyRecords`(`PatientID`,`Allergy`) VALUES (101,'Amoxicillin');
+INSERT INTO `AllergyRecords`(`PatientID`,`Allergy`) VALUES (103,'Ibuprofen');
+INSERT INTO `AllergyRecords`(`PatientID`,`Allergy`) VALUES (103,'Amoxicillin');
+INSERT INTO `AllergyRecords`(`PatientID`,`Allergy`) VALUES (104,'Shellfish');
+INSERT INTO `AllergyRecords`(`PatientID`,`Allergy`) VALUES (105,'Tree nuts');
+
+
+
+
+
+
+
+
+
+/*Stored Procedures*/
+
+/*ADD ALLERGY TO PATIENT*/
+DELIMITER //
+CREATE PROCEDURE `addAllergy`(IN p_PatientID INT, IN p_Allergy varchar(45))
+BEGIN
+INSERT INTO AllergyRecords
+SET PatientID = p_PatientID, Allergy = p_Allergy;
+END//
+DELIMITER ;
+
+/*ADD MEDICATION TO PATIENT*/
+DELIMITER //
+CREATE  PROCEDURE `addMedication`(IN p_PatientID INT, IN p_Medication varchar(45))
+BEGIN
+INSERT INTO MedicationRecords
+SET PatientID = p_PatientID, Medication = p_Medication;
+END//
+DELIMITER ;
+
+/*CANCEL PATIENT'S APPOINTMENT*/
+DELIMITER //
+CREATE PROCEDURE `cancelAppointment`(IN p_AppointmentID INT)
+BEGIN
+DELETE FROM AppointmentDirectory
+WHERE AppointmentID = p_AppointmentID;
+END//
+DELIMITER ;
+
+/*EDIT PATIENT'S APPOINTMENT*/
+DELIMITER //
+CREATE PROCEDURE `editAppointment`(IN p_AppointmentID INT, IN p_PatientID INT, IN p_PhysicianID INT, IN p_ApptDate varchar(45), IN p_ApptReason varchar(45))
+BEGIN
+UPDATE AppointmentDirectory
+SET PatientID = p_PatientID, PhysicianID = p_PhysicianID, ApptDate = p_ApptDate, ApptReason = p_ApptReason
+WHERE AppointmentID = p_AppointmentID;
+END//
+DELIMITER ;
+
+/*PATIENT LOGIN*/
+DELIMITER //
+CREATE PROCEDURE `PatientLogin`(IN p_PatientID INT(11), IN p_Password VARCHAR(45))
+BEGIN
+	DECLARE status INT;
+    IF EXISTS(SELECT * FROM PatientDirectory WHERE PatientID = p_PatientID AND Password = p_Password)
+    THEN
+    SET status = 1;
+    ELSE
+    SET status = 0;
+    END IF;
+    SELECT status;
+END//
+DELIMITER ;
+
+/*PATIENT PROFILE PAGE*/
+DELIMITER //
+CREATE PROCEDURE `patientViewMyProfile`(IN p_ID INT)
+BEGIN
+SELECT First, Last, Sex, DoB, Address, City, ContactPhone, ContactEmail, EmergencyContactName, EmergencyContactPhone, PCPID
+INTO @First, @Last, @Sex, @DoB, @Address, @City, @ContactPhone, @ContactEmail, @EmergencyContactName, @EmergencyContactPhone, @PCPID
+FROM PatientDirectory
+WHERE PatientID = p_ID;
+
+SELECT PhysicianID INTO
+@PhysicianID
+FROM PCPDirectory
+WHERE PCPID = @PCPID;
+
+SELECT First, Last
+INTO @PhysicianFirst, @PhysicianLast
+FROM PhysicianDirectory
+WHERE PhysicianID = @PhysicianID;
+
+SELECT @First AS 'First Name', @Last AS 'Last Name', @DoB AS 'Date of Birth', @Address AS 'Address', @City AS 'City', @ContactPhone AS 'Phone Number', @ContactEmail AS 'E-Mail', @PhysicianFirst AS 'Physician', @PhysicianLast
+AS 'Name';
+END//
+DELIMITER ;
+
+/*PAY PATIENT'S BILL*/
+DELIMITER //
+CREATE PROCEDURE `payBill`(IN p_BillID INT, IN p_AmountPaying INT)
+BEGIN
+
+SELECT AmountDue INTO
+@AmountDue
+FROM BillHistory
+WHERE BillID = p_BillID;
+
+IF(@AmountDue - p_AmountPaying = 0)
+THEN
+UPDATE BillHistory
+SET
+	Reason = "Bill Paid", AmountDue = 0,
+    AmountPaid = AmountPaid + p_AmountPaying
+    WHERE BillID = p_BillID;
+
+ELSEIF(@AmountDue - p_AmountPaying < 0)
+THEN
+UPDATE BillHistory
+SET
+	Reason = "Bill Paid",
+    AmountPaid = AmountPaid + AmountDue,
+    AmountDue = 0
+    WHERE BillID = p_BillID;
+    
+ELSE
+UPDATE BillHistory
+SET
+	AmountDue = AmountDue - p_AmountPaying,
+    AmountPaid = AmountPaid + p_AmountPaying
+    WHERE BillID = p_BillID;
+END IF;
+
+END//
+DELIMITER ;
+
+/*PHYSICIAN LOGIN*/
+DELIMITER //
+CREATE PROCEDURE `PhysicianLogin`(IN p_PhysicianID INT(11), IN p_Password VARCHAR(45))
+BEGIN
+	DECLARE status INT;
+    IF EXISTS(SELECT * FROM PhysicianDirectory WHERE PhysicianID = p_PhysicianID AND Password = p_Password)
+    THEN
+    SET status = 1;
+    ELSE
+    SET status = 0;
+    END IF;
+    SELECT status;
+END//
+DELIMITER ;
+
+/*REGISTER PATIENT*/
+DELIMITER //
+CREATE PROCEDURE `registerPatient`(IN p_PatientID INT, IN p_First varchar(45), IN p_Last varchar(45), IN p_Sex varchar(45), IN p_DoB varchar(45), IN p_PCPID INT, IN p_Address varchar(45), IN p_City varchar(45), IN p_SSN varchar(45), IN p_ContactPhone varchar(45), IN p_ContactEmail varchar(45), IN p_Password varchar(45), IN p_EmergencyContactName varchar(45), IN p_EmergencyContactPhone varchar(45))
+BEGIN
+INSERT INTO PatientDirectory
+SET PatientID = p_PatientID, `First` = p_First, `Last` = p_Last, Sex = p_Sex, DoB = p_DoB, PCPID = p_PCPID, Address = p_Address, City = p_City, SSN = p_SSN, ContactPhone = p_ContactPhone, ContactEmail = p_ContactEmail, `Password` = p_Password, EmergencyContactName = p_EmergencyContactName, EmergencyContactPhone = p_EmergencyContactPhone;
+END//
+DELIMITER ;
+
+/*REGISTER PHYSICIAN*/
+DELIMITER //
+CREATE PROCEDURE `registerPhysician`(IN p_PhysicianID INT, IN p_First varchar(45), IN p_Last varchar(45), IN p_Sex varchar(45), IN p_DoB varchar(45), IN p_Address varchar(45), IN p_City varchar(45), IN p_Specialty varchar(45), IN `p_Resident/Attending` varchar(45), IN p_ContactPhone varchar(45), IN p_ContactEmail varchar(45), IN p_Password varchar(45))
+BEGIN
+INSERT INTO PhysicianDirectory
+SET PhysicianID = p_PhysicianID, `First` = p_First, `Last` = p_Last, Sex = p_Sex, DoB = p_DoB, Address = p_Address, City = p_City, Specialty = p_Specialty, `Resident/Attending` = `p_Resident/Attending`, ContactPhone = p_ContactPhone, ContactEmail = p_ContactEmail, `Password` = p_Password;
+END//
+DELIMITER ;
+
+/*REMOVE PATIENT'S MEDICATION*/
+DELIMITER //
+CREATE PROCEDURE `removeMedication`(IN p_PatientID INT, IN p_Medication varchar(45))
+BEGIN
+DELETE FROM MedicationRecords
+WHERE PatientID = p_PatientID AND Medication = p_Medication;
+END//
+DELIMITER ;
+
+/*SCHEDULE PATIENT APPOINTMENT*/
+DELIMITER //
+CREATE PROCEDURE `scheduleAppointment`(IN p_AppointmentID INT, IN p_PatientID INT, IN p_PhysicianID INT, IN p_ApptDate varchar(45), IN p_ApptReason varchar(45))
+BEGIN
+INSERT INTO AppointmentDirectory
+SET AppointmentID = p_AppointmentID, PatientID = p_PatientID, PhysicianID = p_PhysicianID, ApptDate = p_ApptDate, ApptReason = p_ApptReason;
+END//
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE `updatePatient`(IN p_PatientID INT, IN p_First varchar(45), IN p_Last varchar(45), IN p_Sex varchar(45), IN p_DoB varchar(45), IN p_PCPID INT, IN p_Address varchar(45), IN p_City varchar(45), IN p_SSN varchar(45), IN p_ContactPhone varchar(45), IN p_ContactEmail varchar(45), IN p_Password varchar(45), IN p_EmergencyContactName varchar(45), IN p_EmergencyContactPhone varchar(45))
+BEGIN
+UPDATE PatientDirectory
+SET `First` = p_First, `Last` = p_Last, Sex = p_Sex, DoB = p_DoB, PCPID = p_PCPID, Address = p_Address, City = p_City, SSN = p_SSN, ContactPhone = p_ContactPhone, ContactEmail = p_ContactEmail, `Password` = p_Password, EmergencyContactName = p_EmergencyContactName, EmergencyContactPhone = p_EmergencyContactPhone
+WHERE PatientID = p_PatientID;
+END//
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE `updatePhysician`(IN p_PhysicianID INT, IN p_First varchar(45), IN p_Last varchar(45), IN p_Sex varchar(45), IN p_DoB varchar(45), IN p_Address varchar(45), IN p_City varchar(45), IN p_Specialty varchar(45), IN `p_Resident/Attending` varchar(45), IN p_ContactPhone varchar(45), IN p_ContactEmail varchar(45), IN p_Password varchar(45))
+BEGIN
+UPDATE PhysicianDirectory
+SET `First` = p_First, `Last` = p_Last, Sex = p_Sex, DoB = p_DoB, Address = p_Address, City = p_City, Specialty = p_Specialty, `Resident/Attending` = `p_Resident/Attending`, ContactPhone = p_ContactPhone, ContactEmail = p_ContactEmail, `Password` = p_Password
+WHERE PhysicianID = p_PhysicianID;
+END//
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE `viewPatientBill`(IN p_PatientID INT)
+BEGIN
+	SELECT PatientID, DateIssued, DateDue, AmountDue, AmountPaid, Reason, BillID
+    FROM BillHistory
+    WHERE PatientID = p_PatientID;
+END//
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE viewPhysicianProfile(IN p_PhysicianID INT)
+BEGIN
+	SELECT PhysicianID, First, Last, Sex, DoB, Address, City, Specialty, 'Resident/Attending', ContactPhone, ContactEmail
+	FROM PhysicianDirectory
+	WHERE PhysicianID = p_PhysicianID;
+END //
+DELIMITER ;
+
+
+
+
+
+/* Python Code
+
+import mysql.connector
+connect_args = {"host": "127.0.0.1","port": 3306,"user": "root","password": "***", "db": "CS2420TEAM5"};
+db = mysql.connector.connect(**connect_args)
+cursor = db.cursor()
+
+####Stored Procedures used####
+
+    #-PatientLogin
+    #-PhysicianLogin
+    #-patientViewMyProfile
+    #-viewPatientBill
+    #-payBill
+    #-viewPhysicianProfile
+
+
+
+#Functions
+def patientLogin(x,y):
+    global loginAttempt
+    cursor.callproc("PatientLogin",(x,y))
+    for result in cursor.stored_results():
+        loginAttempt = result.fetchone()
+    if loginAttempt == (1,):
+        loginAttempt = 1
+    else:
+        loginAttempt = 0
+
+def physicianLogin(x,y):
+    global loginAttempt
+    cursor.callproc("PhysicianLogin",(x,y))
+    for result in cursor.stored_results():
+        loginAttempt = result.fetchone()
+    if loginAttempt == (1,):
+        loginAttempt = 1
+    else:
+        loginAttempt = 0
+
+def patientViewMyProfile(id):
+    cursor = db.cursor()
+    cursor.callproc("patientViewMyProfile", (id,))
+    print("\nPatient Details\n")
+    for result in cursor.stored_results():
+        infoTuple = result.fetchone()
+    print("{0:>10}{1:10}{2:15}{3:20}{4:15}{5:14}{6:30}{7:11}{8}".format("Patient ", "Name", "Date of Birth", "Address", "City", "Phone Number", "E-Mail", "Primary Care", " Physician"))
+    print("----------------------------------------------------------------------------------------------------------------------------------------")
+    print("{0:10}{1:10}{2:15}{3:20}{4:15}{5:14}{6:30}{7:11}{8}".format(infoTuple[0], infoTuple[1], infoTuple[2], infoTuple[3], infoTuple[4], infoTuple[5], infoTuple[6], infoTuple[7], infoTuple[8]))
+
+def viewPatientBill(id):
+    cursor.callproc("viewPatientBill",(id,))
+    print("\nBill History\n")
+    for result in cursor.stored_results():
+        billTuple = result.fetchone()
+    if billTuple == None:
+        print("{0:12}{1:13}{2:10}{3:12}{4:13}{5:20}".format("Patient ID ", "Date Issued", "Date Due", "Amount Due", "Amount Paid", "Reason"))
+        print("------------------------------------------------------------------")
+        print("No Bill History")
+        global billState
+        billState = None
+        
+    else:
+        print("{0:12}{1:13}{2:10}{3:12}{4:13}{5:20}".format("Patient ID ", "Date Issued", "Date Due", "Amount Due", "Amount Paid", "Reason"))
+        print("------------------------------------------------------------------")
+        print("{0:<12}{1:13}{2:10}{3:^12}{4:^13}{5:20}".format(billTuple[0], billTuple[1], billTuple[2], billTuple[3], billTuple[4], billTuple[5]))
+        global userBillID
+        userBillID = billTuple[6]
+
+def payBill(billID, amountPaying):
+    cursor.callproc("payBill", (billID, amountPaying))
+    db.commit()
+
+def physicianViewProfile(id):
+    cursor.callproc("viewPhysicianProfile", (id,))
+    print("\nPhysician Details\n")
+    for result in cursor.stored_results():
+        infoTuple = result.fetchone()
+    print("{0:>10}{1:10}{2:5}{3:15}{4:15}{5:14}{6:15}{7:20}{8:13}{9}".format("Physician ", "Name", "Sex", "Date of Birth", "Address", "City", "Specialty", "Resident/Attending", "Phone Number", "E-Mail"))
+    print("---------------------------------------------------------------------------------------------------------------------------------------------")
+    print("{0:10}{1:10}{2:^5}{3:15}{4:15}{5:14}{6:15}{7:20}{8:13}{9}".format(infoTuple[0], infoTuple[1], infoTuple[2], infoTuple[3], infoTuple[4], infoTuple[5], infoTuple[6], infoTuple[7], infoTuple[8], infoTuple[9]))
+
+    
+
+#Global Variables
+userBillID = int
+billState = 0
+
+loginAttempt = 0
+
+userTypes = ['1','2']
+userType = 0
+userID = int
+
+
+#Choose User Type and if invalid user type loops back
+while userType not in userTypes:
+    print("Select User Type")
+    print("{0:15}{1}".format("Patient:", "1"))
+    print("{0:15}{1}".format("Physician:", "2"))
+    print("\n")
+    userType = input("Enter User Type: ")
+    if userType not in userTypes:
+        print("\n========================================================================================================================================\n")
+        print("\nInvalid User Type. Please Try Again\n")
+
+
+#Login Loop that continues until valid userid and password submitted
+#Different Login loops depending on the usertype
+if userType == '1':
+    while loginAttempt == 0:
+        print("\n")
+        userID = input("Enter USERID: ")
+        password = input("Enter PASSWORD: ")
+
+        patientLogin(userID, password)
+        if loginAttempt == 0:
+            print("\n========================================================================================================================================\n")
+            print("\nIncorrect UserID or Password. Please Try Again\n")
+
+if userType == '2':
+    while loginAttempt == 0:
+        userID = input("Enter USERID: ")
+        password = input("Enter PASSWORD: ")
+
+        physicianLogin(userID, password)
+        if loginAttempt == 0:
+            print("\n========================================================================================================================================\n")
+            print("\nIncorrect UserID or Password. Please Try Again\n")
+
+
+
+####Patient Screen####
+patientInputOptions = ['1','2', '3','6']    
+patientOptionInput = '1'
+
+billingOptions = ['1','2']
+billingChoice = '3'
+amountPaying = 0
+#amountPayingError = 
+if userType == '1':
+    while patientOptionInput == '1':
+        print("\n========================================================================================================================================\n")
+        print("{0:15}{1}".format("Home:", "1"))
+        print("{0:15}{1}".format("View Profile:", "2"))
+        print("{0:15}{1}".format("Billing:", "3"))
+        print("{0:15}{1}".format("Logout:", "6\n"))
+    
+        patientOptionInput = input()
+        #Test Valid PatientInput, resets loop if invalid
+        if patientOptionInput not in patientInputOptions:
+            print("Invalid Input. Please Try Again")
+            patientOptionInput = input()
+        #Patient View Profile, redirects home after displaying profile
+        if patientOptionInput == '2':
+            print("\n========================================================================================================================================\n")
+            patientViewMyProfile(userID)
+            patientOptionInput = '1'
+        #Billing, then gives option to pay bill or return Home
+        if patientOptionInput == '3':
+            
+            print("\n========================================================================================================================================\n")
+            viewPatientBill(userID)
+            print("{0:16}{1}".format("\nHome:", "1"))
+            print("{0:15}{1}".format("Pay Bill:", "2"))
+            patientChoice = input()
+            if patientChoice not in billingOptions:
+                print("Invalid Input. Please Try Again")
+                patientChoice = input()
+            #return to Home Screen
+            if patientChoice == '1':
+                patientOptionInput = '1'
+            if patientChoice == '2':
+                if billState == None:
+                    print("No Bill to Pay.")
+                    patientOptionInput = '1'
+                else:
+                    while True:
+                        try:
+                            amountPaying = int(input("Enter Amount to Pay: "))
+                            payBill(userBillID, amountPaying)
+                            print("\n========================================================================================================================================\n")
+                            viewPatientBill(userID)
+                            patientOptionInput = '1'
+                        
+                            break
+                        except ValueError:
+                            print("Please Enter a Whole Number.")
+                
+                
+                
+            
+        #logout
+        if patientOptionInput == '6':
+            print("\n========================================================================================================================================\n")
+            print("Logging Out")
+            
+
+####End Patient Screen####
+
+
+
+
+####Physician Screen####
+physicianInputOptions = ['1','2','6']    
+physicianOptionInput = '1'
+
+            
+if userType == '2':
+    while physicianOptionInput == '1':
+        print("\n========================================================================================================================================\n")
+        print("{0:15}{1}".format("Home:", "1"))
+        print("{0:15}{1}".format("View Profile:", "2"))
+        print("{0:15}{1}".format("Logout:", "6\n"))
+        physicianOptionInput = input()
+        #Test Valid PatientInput, resets loop if invalid
+        if physicianOptionInput not in physicianInputOptions:
+            print("Invalid Input. Please Try Again")
+            physicianOptionInput = input()
+        if physicianOptionInput == '2':
+            print("\n========================================================================================================================================\n")
+            physicianViewProfile(userID)
+            physicianOptionInput = '1'
+        if physicianOptionInput == '6':
+            print("\n========================================================================================================================================\n")
+            print("Logging Out")
+
+
+
+####End Physician Screen####
+
+    
+cursor.close()
+db.close()
+*/
